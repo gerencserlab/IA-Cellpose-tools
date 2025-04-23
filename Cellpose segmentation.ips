@@ -1,0 +1,288 @@
+<IAPipeline Description="Image Analyst MKII XML 1.0" Version="1211">
+  <Pipeline Version="1211">
+    <Functions>
+      <fSetScaling Caption="Set scaling/LUT" ID="0" PID="3" Description="Set scaling/LUT">
+        <Caption>Set scaling/LUT</Caption>
+        <Position Top="170" Left="147" Height="25" Width="93"/>
+        <Parameters>
+          <lut ID="0" Type="Text" Value="Grayscale"/>
+          <type ID="1" Type="Text" Value="Percentile by frame"/>
+          <pmin ID="2" Type="Real" Value="10" SValue=""/>
+          <pmax ID="3" Type="Real" Value="99.9" SValue=""/>
+          <fmin ID="4" Type="Real" Value="0" SValue=""/>
+          <fmax ID="5" Type="Real" Value="0" SValue=""/>
+          <gamma ID="6" Type="Real" Value="1" SValue=""/>
+          <color ID="7" Type="Text" Value=""/>
+        </Parameters>
+        <Inputs Types="P" IDs="9"/>
+        <Outputs Types="P" IDs="10"/>
+      </fSetScaling>
+      <fInput Caption="Input image" ID="1" PID="0" Description="Input image">
+        <Caption>Input image</Caption>
+        <Position Top="0" Left="71" Height="25" Width="72"/>
+        <Parameters>
+          <image ID="0" Type="Text" Value="[Actual window]"/>
+        </Parameters>
+        <Inputs Types="" IDs=""/>
+        <Outputs Types="C" IDs="6"/>
+      </fInput>
+      <fRunEXE Caption="Run EXE" ID="2" PID="162" Description="Run EXE">
+        <Caption>Run EXE</Caption>
+        <Position Top="251" Left="106" Height="25" Width="61"/>
+        <Parameters>
+          <filename ID="0" Type="Text" Value="http://localhost:5001/segment"/>
+          <arguments ID="1" Type="Text" Value="-m --dir --pretrained_model --diameter --cellprob_threshold --flow_threshold --chan --chan2 --batch_size --save_tif --verbose --use_gpu --no_npy "/>
+          <format ID="2" Type="Text" Value="TIFPadded"/>
+          <way ID="3" Type="Text" Value="RGB as input#_frame#.ext"/>
+          <exportsuffix ID="4" Type="Text" Value=""/>
+          <results ID="5" Type="Text" Value="1_*_cp_masks.tif"/>
+          <resultformat ID="6" Type="Text" Value="TIFF (*.tif)"/>
+          <usetemp ID="7" Type="Bool" Value="Yes"/>
+          <customtemp ID="8" Type="Text" Value=""/>
+          <deletetemp ID="9" Type="Bool" Value="No"/>
+          <forceclose ID="10" Type="Bool" Value="No"/>
+          <nowait ID="11" Type="Bool" Value="No"/>
+          <loopframes ID="12" Type="Bool" Value="No"/>
+          <parallel ID="13" Type="Integer" Value="1" SValue=""/>
+          <runas ID="14" Type="Bool" Value="No"/>
+          <args1 ID="15" Type="Text" Value="cellpose"/>
+          <args2 ID="16" Type="Text" Value="=%temp%"/>
+          <args3 ID="17" Type="Text" Value="nuclei"/>
+          <args4 ID="18" Type="Text" Value="0"/>
+          <args5 ID="19" Type="Text" Value="0"/>
+          <args6 ID="20" Type="Text" Value="0.5"/>
+          <args7 ID="21" Type="Text" Value="0"/>
+          <args8 ID="22" Type="Text" Value="0"/>
+          <args9 ID="23" Type="Text" Value="8"/>
+          <args10 ID="24" Type="Text" Value=""/>
+        </Parameters>
+        <Inputs Types="P" IDs="10"/>
+        <Outputs Types="P" IDs="3"/>
+      </fRunEXE>
+      <fSetSegmentationClassifiers Caption="Set Segmentation Classifiers" ID="3" PID="48" Description="Set Segmentation Classifiers">
+        <Caption>Set Segmentation Classifiers</Caption>
+        <Position Top="298" Left="47" Height="25" Width="156"/>
+        <Parameters>
+          <type ID="0" Type="Text" Value="Min"/>
+          <volume ID="1" Type="Integer" Value="0" SValue=""/>
+          <surface ID="2" Type="Integer" Value="0" SValue=""/>
+          <maxarea ID="3" Type="Integer" Value="0" SValue=""/>
+          <maxperimeter ID="4" Type="Integer" Value="0" SValue=""/>
+          <maxdiameter ID="5" Type="Real" Value="0" SValue=""/>
+          <shapefactor ID="6" Type="Real" Value="0" SValue=""/>
+          <sphericalshapefactor ID="7" Type="Real" Value="0" SValue=""/>
+          <totalfileamentlength ID="8" Type="Integer" Value="0" SValue=""/>
+          <totalbranchpoints ID="9" Type="Integer" Value="0" SValue=""/>
+          <fiberlength ID="10" Type="Real" Value="0" SValue=""/>
+          <fiberbreadth ID="11" Type="Real" Value="0" SValue=""/>
+          <nearestneighbor ID="12" Type="Real" Value="0" SValue=""/>
+          <numberofneighbors ID="13" Type="Integer" Value="0" SValue=""/>
+          <distancetoedge ID="14" Type="Real" Value="0" SValue=""/>
+        </Parameters>
+        <Inputs Types="P" IDs="2"/>
+        <Outputs Types="P" IDs="8"/>
+      </fSetSegmentationClassifiers>
+      <fReEvSegment Caption="Reevaluate Segments" ID="4" PID="101" Description="Reevaluate Segments">
+        <Caption>Reevaluate Segments</Caption>
+        <Position Top="360" Left="68" Height="25" Width="122"/>
+        <Parameters>
+          <reapply ID="0" Type="Bool" Value="Yes"/>
+          <textoutput ID="1" Type="Bool" Value="No"/>
+          <weld ID="2" Type="Bool" Value="No"/>
+          <noedges ID="3" Type="Bool" Value="No"/>
+        </Parameters>
+        <Inputs Types="P" IDs="8"/>
+        <Outputs Types="" IDs=""/>
+      </fReEvSegment>
+      <fWienerFilterSmooth Caption="Wiener Filter Smooth" ID="5" PID="84" Description="Wiener Filter Smooth">
+        <Caption>Wiener Filter Smooth</Caption>
+        <Position Top="92" Left="0" Height="25" Width="118"/>
+        <Parameters>
+          <width ID="0" Type="Integer" Value="5" SValue=""/>
+          <noise ID="1" Type="Real" Value="0.005" SValue=""/>
+        </Parameters>
+        <Inputs Types="P" IDs="13"/>
+        <Outputs Types="P" IDs="14"/>
+      </fWienerFilterSmooth>
+      <fCopy Caption="Copy" ID="6" PID="4" Description="Copy">
+        <Caption>Copy</Caption>
+        <Position Top="34" Left="108" Height="25" Width="42"/>
+        <Parameters>
+          <linked ID="0" Type="Bool" Value="Yes"/>
+          <frames ID="1" Type="Text" Value="All"/>
+        </Parameters>
+        <Inputs Types="P" IDs="1"/>
+        <Outputs Types="P" IDs="13"/>
+      </fCopy>
+      <fClose Caption="Close" ID="7" PID="22" Description="Close">
+        <Caption>Close</Caption>
+        <Position Top="216" Left="31" Height="25" Width="44"/>
+        <Parameters>
+          <target ID="0" Type="Text" Value="Image"/>
+        </Parameters>
+        <Inputs Types="P" IDs="10"/>
+        <Outputs Types="" IDs=""/>
+      </fClose>
+      <fSetSegmentationClassifiers Caption="Set Segmentation Classifiers" ID="8" PID="48" Description="Set Segmentation Classifiers">
+        <Caption>Set Segmentation Classifiers</Caption>
+        <Position Top="326" Left="48" Height="25" Width="156"/>
+        <Parameters>
+          <type ID="0" Type="Text" Value="Max"/>
+          <volume ID="1" Type="Integer" Value="0" SValue=""/>
+          <surface ID="2" Type="Integer" Value="0" SValue=""/>
+          <maxarea ID="3" Type="Integer" Value="0" SValue=""/>
+          <maxperimeter ID="4" Type="Integer" Value="0" SValue=""/>
+          <maxdiameter ID="5" Type="Real" Value="0" SValue=""/>
+          <shapefactor ID="6" Type="Real" Value="0" SValue=""/>
+          <sphericalshapefactor ID="7" Type="Real" Value="0" SValue=""/>
+          <totalfileamentlength ID="8" Type="Integer" Value="0" SValue=""/>
+          <totalbranchpoints ID="9" Type="Integer" Value="0" SValue=""/>
+          <fiberlength ID="10" Type="Real" Value="0" SValue=""/>
+          <fiberbreadth ID="11" Type="Real" Value="0" SValue=""/>
+          <nearestneighbor ID="12" Type="Real" Value="0" SValue=""/>
+          <numberofneighbors ID="13" Type="Integer" Value="0" SValue=""/>
+          <distancetoedge ID="14" Type="Real" Value="0" SValue=""/>
+        </Parameters>
+        <Inputs Types="P" IDs="3"/>
+        <Outputs Types="P" IDs="4"/>
+      </fSetSegmentationClassifiers>
+      <fSelect Caption="Select" ID="9" PID="145" Description="Select">
+        <Caption>Select</Caption>
+        <Position Top="148" Left="97" Height="25" Width="46"/>
+        <Parameters>
+          <selectorvalues ID="0" Type="Text" Value="Fluorescence;Brightfield;Brightfield to be inverted"/>
+          <selector ID="1" Type="Text" Value="Fluorescence"/>
+          <operation ID="2" Type="Text" Value="Execute selected output"/>
+        </Parameters>
+        <Inputs Types="P" IDs="14"/>
+        <Outputs Types="PPP" IDs="0;10;11"/>
+      </fSelect>
+      <fEndIf Caption="EndIf" ID="10" PID="143" Description="EndIf">
+        <Caption>EndIf</Caption>
+        <Position Top="213" Left="108" Height="25" Width="42"/>
+        <Parameters>
+          <inputs ID="0" Type="Integer" Value="1" SValue=""/>
+        </Parameters>
+        <Inputs Types="PPP" IDs="9;0;12"/>
+        <Outputs Types="PC" IDs="7;2"/>
+      </fEndIf>
+      <fInvert Caption="Invert" ID="11" PID="154" Description="Invert">
+        <Caption>Invert</Caption>
+        <Position Top="159" Left="37" Height="25" Width="43"/>
+        <Parameters>
+          <range ID="0" Type="Text" Value="Automatic bit depth"/>
+        </Parameters>
+        <Inputs Types="P" IDs="9"/>
+        <Outputs Types="P" IDs="12"/>
+      </fInvert>
+      <fSetScaling Caption="Set scaling/LUT" ID="12" PID="3" Description="Set scaling/LUT">
+        <Caption>Set scaling/LUT</Caption>
+        <Position Top="184" Left="11" Height="25" Width="93"/>
+        <Parameters>
+          <lut ID="0" Type="Text" Value="Grayscale"/>
+          <type ID="1" Type="Text" Value="Percentile by frame"/>
+          <pmin ID="2" Type="Real" Value="10" SValue=""/>
+          <pmax ID="3" Type="Real" Value="99.9" SValue=""/>
+          <fmin ID="4" Type="Real" Value="0" SValue=""/>
+          <fmax ID="5" Type="Real" Value="0" SValue=""/>
+          <gamma ID="6" Type="Real" Value="1" SValue=""/>
+          <color ID="7" Type="Text" Value=""/>
+        </Parameters>
+        <Inputs Types="P" IDs="11"/>
+        <Outputs Types="P" IDs="10"/>
+      </fSetScaling>
+      <fIfGreaterThan0 Caption="If Greater Than Zero" ID="13" PID="144" Description="If Greater Than Zero">
+        <Caption>If Greater Than Zero</Caption>
+        <Position Top="59" Left="72" Height="25" Width="115"/>
+        <Parameters>
+          <condition ID="0" Type="Real" Value="0.005" SValue=""/>
+        </Parameters>
+        <Inputs Types="P" IDs="6"/>
+        <Outputs Types="PP" IDs="5;14"/>
+      </fIfGreaterThan0>
+      <fEndIf Caption="EndIf" ID="14" PID="143" Description="EndIf">
+        <Caption>EndIf</Caption>
+        <Position Top="117" Left="106" Height="25" Width="42"/>
+        <Parameters>
+          <inputs ID="0" Type="Integer" Value="1" SValue=""/>
+        </Parameters>
+        <Inputs Types="PP" IDs="13;5"/>
+        <Outputs Types="P" IDs="9"/>
+      </fEndIf>
+    </Functions>
+  </Pipeline>
+  <Parameters Version="1211">
+    <Caption>Cellpose segmentation</Caption>
+    <DesignVersion>2</DesignVersion>
+    <Description>This pipeline uses Cellpose to detect nuclei or cells in a single channel. The input image (series) is exported, processed by Cellpose 2.0 command line and results are imported. Image transfer is through a unique temp folder opened for each call, within the Image Export Folder. See Files/Set Folder Locations to set this. By default, these temporary folders are deleted, see switch in the Run EXE function. Use Cellpose GUI to fine tune thresholds. Start GUI in Pipelines/Using External Programs/Cellpose/Launch cellpose GUI. Save images to be loaded into the GUI use the Files/Export RGB Full Size Image, or by disabling temp folder deletion above, and locating the temp folder.
+
+Input:
+* Fluorescence images: these will be intensity rescaled, and optionally gamma corrected and denoised as preprocessing.
+* Brightfield images: grayscale input; no intensity scaling or gamma are applied, optionally denoised. Some Cellpose models work well with bright field images (e.g. livecell) others don’t.
+* Brightfield to be inverted: The pipeline will invert the grayscale brightfield image and scale it similarly as for fluorescence images.
+
+Cellpose will run faster if the same number of images are processed as an image series than one-by-one. Further speed increment can be achieved by increasing batch size and number of parallel processes, depending on the available system memory and the image size. Use batch size of 64 and 4 parallel processes with 24GB GPU. Further command line options can be entered by editing this pipeline in the Run EXE function, Argument parameter. 
+
+This pipeline uses Cellpose 2.0. Cellpose is installed by the user as given in the Image Analyst MKII Primer/TOC/Using external programs.
+
+Pachitariu M, Stringer C. Cellpose 2.0: how to train your own model. Nat Methods. 2022;19(12):1634-41
+https://github.com/MouseLand/cellpose
+
+Keywords: U-Net, CNN, deep learning, generalist cell segmentation, artificial intelligence, AI
+
+Version history
+V2: Added fluorescence/brightfield selector, optional inversion and optional disabling of Wiener filtering.
+</Description>
+    <Parameters>
+      <param ID="0" UID="82122944" Caption="Image type for intensity scaling" Type="Text" Value="Fluorescence" Constraints="" ErrorMessage="Invalid value. Enter possible values separated by ; at " Hint="Only fluorescence images are rescaled, brightfield ones are used as are. Inverted brightfield images will be rescaled.">
+        <link Caption="Select::Selected value" ID="9" paramID="1" paramName="selector"/>
+      </param>
+      <param ID="1" UID="60840312" Caption="Cells: Scale maximum (percentile)" Type="Real" Value="99.9" Constraints="-1-100" ErrorMessage="Maximal percentile must be between 0 and 100 and must be larger than minimal percentile. Alternatively, -1 overrides percentile with fixed value set below." Hint="This percentile of the image histogram sets the intensity value where the maximum of the Look Up Table (LUT) is scaled. Use -1 to override this with fixed value set below at &quot;Max value&quot;.">
+        <link Caption="Set scaling/LUT::Max percentile (1)" ID="0" paramID="3" paramName="pmax"/>
+        <link Caption="Set scaling/LUT::Max percentile (1) (1)" ID="12" paramID="3" paramName="pmax"/>
+      </param>
+      <param ID="2" UID="64381756" Caption="Cells: Gamma" Type="Real" Value="1" Constraints="&gt;0" ErrorMessage="Gamma value" Hint="A gamma value &gt;1 makes image supralinearly brighter, a gamma value &lt;1 makes the image sublinearly darker.">
+        <link Caption="Set scaling/LUT::Gamma" ID="0" paramID="6" paramName="gamma"/>
+        <link Caption="Set scaling/LUT::Gamma (1)" ID="12" paramID="6" paramName="gamma"/>
+      </param>
+      <param ID="3" UID="64381686" Caption="Cells: Smooth factor" Type="Real" Value="0.005" Constraints="0-1" ErrorMessage="" Hint="Wiener filter noise level (0-1). Higher value provides more smoothing. Set zero for no smoothing.">
+        <link Caption="Wiener Filter Smooth::Noise level" ID="5" paramID="1" paramName="noise"/>
+        <link Caption="If Greater Than Zero::Execute output #1 if value&gt;0, otherwise #2" ID="13" paramID="0" paramName="condition"/>
+      </param>
+      <param ID="4" UID="69614917" Caption="Cells: Cellpose Model (pretrained network)" Type="Text" Value="nuclei" Constraints="" ErrorMessage="" Hint="Enter a pretrained model name from the model zoo, or name for user trained model installed into the GUI. See --pretrained_model option in Cellpose.">
+        <link Caption="Run EXE::Argument 3 (--pretrained_model)" ID="2" paramID="17" paramName="args3"/>
+      </param>
+      <param ID="5" UID="69614921" Caption="Cells: Cellpose Diameter (pixels)" Type="Text" Value="0" Constraints="" ErrorMessage="" Hint="Approximate diameter of objects in pixels. Use 0 for auto detection of size for nuclei or cyto models only.">
+        <link Caption="Run EXE::Argument 4 (--diameter)" ID="2" paramID="18" paramName="args4"/>
+      </param>
+      <param ID="6" UID="69615522" Caption="Cells: Cellpose --flow_threshold" Type="Text" Value="0.5" Constraints="" ErrorMessage="" Hint="Maximum allowed error of the flows for each mask. A higher value (0-1) will allow more detection.">
+        <link Caption="Run EXE::Argument 6 (--flow_threshold)" ID="2" paramID="20" paramName="args6"/>
+      </param>
+      <param ID="7" UID="69615520" Caption="Cells: Cellpose --cellprob_threshold" Type="Text" Value="0" Constraints="" ErrorMessage="" Hint="Minimum probability to return ROIs. A lower value will allow more detection.">
+        <link Caption="Run EXE::Argument 5 (--cellprob_threshold)" ID="2" paramID="19" paramName="args5"/>
+      </param>
+      <param ID="8" UID="60840193" Caption="Cells: Minimum size of cells (pixels area)" Type="Integer" Value="0" Constraints="&gt;0" ErrorMessage="Volume must be &gt;0 or 0 for not checking." Hint="The result provided by Cellpose is gated for this minimum pixel area per object">
+        <link Caption="Set Segmentation Classifiers::Volume" ID="3" paramID="1" paramName="volume"/>
+      </param>
+      <param ID="9" UID="64381674" Caption="Cells: Maximum size of cells (pixels area)" Type="Integer" Value="0" Constraints="&gt;0" ErrorMessage="Volume must be &gt;0 or 0 for not checking." Hint="The result provided by Cellpose is gated for this minimum maximum area per object">
+        <link Caption="Set Segmentation Classifiers::Volume" ID="8" paramID="1" paramName="volume"/>
+      </param>
+      <param ID="10" UID="51291673" Caption="Python.exe in the Cellpose Environment" Type="Text" Value="http://localhost:5001/segment" Constraints="" ErrorMessage="" Hint="Prerequisite:Cellpose. Change environment name if needed. Syntax: Filename with full path, or filename only if it is in the environment path. Alternatively, use one or more command prompt expressions with arguments concatenated by &amp;&amp; and the whole expression quoted with &quot;.">
+        <link Caption="Run EXE::Path and filename (*.exe) (1)" ID="2" paramID="0" paramName="filename"/>
+      </param>
+      <param ID="11" UID="69615719" Caption="Cellpose: number of parallel processes" Type="Integer" Value="1" Constraints="&gt;1" ErrorMessage="The number of parallel processes must be greater than zero." Hint="Image series and time courses will be split into multiple parts and separate instances of the external program is launched.">
+        <link Caption="Run EXE::Number of parallel processes (1)" ID="2" paramID="13" paramName="parallel"/>
+      </param>
+      <param ID="12" UID="69615714" Caption="Cellpose: --batch_size" Type="Text" Value="8" Constraints="" ErrorMessage="" Hint="Set batch size according to the GPU memory and number of parallel processes. E.g. 3 parallel process (for series only) and 64 batch size with 24GB VRAM.">
+        <link Caption="Run EXE::Argument 9 (--batch_size) (1)" ID="2" paramID="23" paramName="args9"/>
+      </param>
+    </Parameters>
+  </Parameters>
+  <Options Version="1211">
+    <usesexcel Value="false"/>
+    <warnrefimage Value="false"/>
+    <warnrefimagemsg Value=""/>
+    <matrixsavedef Value="false"/>
+    <forceshowcmd Value="false"/>
+  </Options>
+</IAPipeline>

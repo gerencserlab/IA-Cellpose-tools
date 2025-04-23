@@ -1,0 +1,4 @@
+# Install requsities for Cellpose server for older installations of Image Analyst MKII
+# Cellpose need to be istalled from Image Analyst MKII / Help / Primer 
+flask
+imageio
