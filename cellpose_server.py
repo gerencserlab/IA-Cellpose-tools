@@ -62,6 +62,7 @@ def segment():
             cellprob_threshold=cellprob_threshold,
             flow_threshold=flow_threshold,
             resample=False
+            
         )
 
         save_path = img_path_single.replace(".tif", "_cp_masks.tif").replace(".jpg", "_cp_masks.tif")

@@ -1,9 +1,9 @@
-<IAPipeline Description="Image Analyst MKII XML 1.0" Version="1211">
-  <Pipeline Version="1211">
+<IAPipeline Description="Image Analyst MKII XML 1.0" Version="1214">
+  <Pipeline Version="1214">
     <Functions>
       <fSetScaling Caption="Set scaling/LUT" ID="0" PID="3" Description="Set scaling/LUT">
         <Caption>Set scaling/LUT</Caption>
-        <Position Top="170" Left="147" Height="25" Width="93"/>
+        <Position Top="170" Left="147" Height="25" Width="92"/>
         <Parameters>
           <lut ID="0" Type="Text" Value="Grayscale"/>
           <type ID="1" Type="Text" Value="Percentile by frame"/>
@@ -19,7 +19,7 @@
       </fSetScaling>
       <fInput Caption="Input image" ID="1" PID="0" Description="Input image">
         <Caption>Input image</Caption>
-        <Position Top="0" Left="71" Height="25" Width="72"/>
+        <Position Top="0" Left="71" Height="25" Width="73"/>
         <Parameters>
           <image ID="0" Type="Text" Value="[Actual window]"/>
         </Parameters>
@@ -47,9 +47,9 @@
           <runas ID="14" Type="Bool" Value="No"/>
           <args1 ID="15" Type="Text" Value="cellpose"/>
           <args2 ID="16" Type="Text" Value="=%temp%"/>
-          <args3 ID="17" Type="Text" Value="nuclei"/>
-          <args4 ID="18" Type="Text" Value="0"/>
-          <args5 ID="19" Type="Text" Value="0"/>
+          <args3 ID="17" Type="Text" Value="cyto3"/>
+          <args4 ID="18" Type="Text" Value="26"/>
+          <args5 ID="19" Type="Text" Value="0.5"/>
           <args6 ID="20" Type="Text" Value="0.5"/>
           <args7 ID="21" Type="Text" Value="0"/>
           <args8 ID="22" Type="Text" Value="0"/>
@@ -61,7 +61,7 @@
       </fRunEXE>
       <fSetSegmentationClassifiers Caption="Set Segmentation Classifiers" ID="3" PID="48" Description="Set Segmentation Classifiers">
         <Caption>Set Segmentation Classifiers</Caption>
-        <Position Top="298" Left="47" Height="25" Width="156"/>
+        <Position Top="298" Left="47" Height="25" Width="155"/>
         <Parameters>
           <type ID="0" Type="Text" Value="Min"/>
           <volume ID="1" Type="Integer" Value="0" SValue=""/>
@@ -84,7 +84,7 @@
       </fSetSegmentationClassifiers>
       <fReEvSegment Caption="Reevaluate Segments" ID="4" PID="101" Description="Reevaluate Segments">
         <Caption>Reevaluate Segments</Caption>
-        <Position Top="360" Left="68" Height="25" Width="122"/>
+        <Position Top="360" Left="68" Height="25" Width="120"/>
         <Parameters>
           <reapply ID="0" Type="Bool" Value="Yes"/>
           <textoutput ID="1" Type="Bool" Value="No"/>
@@ -96,10 +96,10 @@
       </fReEvSegment>
       <fWienerFilterSmooth Caption="Wiener Filter Smooth" ID="5" PID="84" Description="Wiener Filter Smooth">
         <Caption>Wiener Filter Smooth</Caption>
-        <Position Top="92" Left="0" Height="25" Width="118"/>
+        <Position Top="92" Left="0" Height="25" Width="119"/>
         <Parameters>
           <width ID="0" Type="Integer" Value="5" SValue=""/>
-          <noise ID="1" Type="Real" Value="0.005" SValue=""/>
+          <noise ID="1" Type="Real" Value="0" SValue=""/>
         </Parameters>
         <Inputs Types="P" IDs="13"/>
         <Outputs Types="P" IDs="14"/>
@@ -116,7 +116,7 @@
       </fCopy>
       <fClose Caption="Close" ID="7" PID="22" Description="Close">
         <Caption>Close</Caption>
-        <Position Top="216" Left="31" Height="25" Width="44"/>
+        <Position Top="216" Left="31" Height="25" Width="43"/>
         <Parameters>
           <target ID="0" Type="Text" Value="Image"/>
         </Parameters>
@@ -125,7 +125,7 @@
       </fClose>
       <fSetSegmentationClassifiers Caption="Set Segmentation Classifiers" ID="8" PID="48" Description="Set Segmentation Classifiers">
         <Caption>Set Segmentation Classifiers</Caption>
-        <Position Top="326" Left="48" Height="25" Width="156"/>
+        <Position Top="326" Left="48" Height="25" Width="155"/>
         <Parameters>
           <type ID="0" Type="Text" Value="Max"/>
           <volume ID="1" Type="Integer" Value="0" SValue=""/>
@@ -177,7 +177,7 @@
       </fInvert>
       <fSetScaling Caption="Set scaling/LUT" ID="12" PID="3" Description="Set scaling/LUT">
         <Caption>Set scaling/LUT</Caption>
-        <Position Top="184" Left="11" Height="25" Width="93"/>
+        <Position Top="184" Left="11" Height="25" Width="92"/>
         <Parameters>
           <lut ID="0" Type="Text" Value="Grayscale"/>
           <type ID="1" Type="Text" Value="Percentile by frame"/>
@@ -195,7 +195,7 @@
         <Caption>If Greater Than Zero</Caption>
         <Position Top="59" Left="72" Height="25" Width="115"/>
         <Parameters>
-          <condition ID="0" Type="Real" Value="0.005" SValue=""/>
+          <condition ID="0" Type="Real" Value="0" SValue=""/>
         </Parameters>
         <Inputs Types="P" IDs="6"/>
         <Outputs Types="PP" IDs="5;14"/>
@@ -211,7 +211,7 @@
       </fEndIf>
     </Functions>
   </Pipeline>
-  <Parameters Version="1211">
+  <Parameters Version="1214">
     <Caption>Cellpose segmentation</Caption>
     <DesignVersion>2</DesignVersion>
     <Description>This pipeline uses Cellpose to detect nuclei or cells in a single channel. The input image (series) is exported, processed by Cellpose 2.0 command line and results are imported. Image transfer is through a unique temp folder opened for each call, within the Image Export Folder. See Files/Set Folder Locations to set this. By default, these temporary folders are deleted, see switch in the Run EXE function. Use Cellpose GUI to fine tune thresholds. Start GUI in Pipelines/Using External Programs/Cellpose/Launch cellpose GUI. Save images to be loaded into the GUI use the Files/Export RGB Full Size Image, or by disabling temp folder deletion above, and locating the temp folder.
@@ -245,20 +245,20 @@ V2: Added fluorescence/brightfield selector, optional inversion and optional dis
         <link Caption="Set scaling/LUT::Gamma" ID="0" paramID="6" paramName="gamma"/>
         <link Caption="Set scaling/LUT::Gamma (1)" ID="12" paramID="6" paramName="gamma"/>
       </param>
-      <param ID="3" UID="64381686" Caption="Cells: Smooth factor" Type="Real" Value="0.005" Constraints="0-1" ErrorMessage="" Hint="Wiener filter noise level (0-1). Higher value provides more smoothing. Set zero for no smoothing.">
+      <param ID="3" UID="64381686" Caption="Cells: Smooth factor" Type="Real" Value="0" Constraints="0-1" ErrorMessage="" Hint="Wiener filter noise level (0-1). Higher value provides more smoothing. Set zero for no smoothing.">
         <link Caption="Wiener Filter Smooth::Noise level" ID="5" paramID="1" paramName="noise"/>
         <link Caption="If Greater Than Zero::Execute output #1 if value&gt;0, otherwise #2" ID="13" paramID="0" paramName="condition"/>
       </param>
-      <param ID="4" UID="69614917" Caption="Cells: Cellpose Model (pretrained network)" Type="Text" Value="nuclei" Constraints="" ErrorMessage="" Hint="Enter a pretrained model name from the model zoo, or name for user trained model installed into the GUI. See --pretrained_model option in Cellpose.">
+      <param ID="4" UID="69614917" Caption="Cells: Cellpose Model (pretrained network)" Type="Text" Value="cyto3" Constraints="" ErrorMessage="" Hint="Enter a pretrained model name from the model zoo, or name for user trained model installed into the GUI. See --pretrained_model option in Cellpose.">
         <link Caption="Run EXE::Argument 3 (--pretrained_model)" ID="2" paramID="17" paramName="args3"/>
       </param>
-      <param ID="5" UID="69614921" Caption="Cells: Cellpose Diameter (pixels)" Type="Text" Value="0" Constraints="" ErrorMessage="" Hint="Approximate diameter of objects in pixels. Use 0 for auto detection of size for nuclei or cyto models only.">
+      <param ID="5" UID="69614921" Caption="Cells: Cellpose Diameter (pixels)" Type="Text" Value="26" Constraints="" ErrorMessage="" Hint="Approximate diameter of objects in pixels. Use 0 for auto detection of size for nuclei or cyto models only.">
         <link Caption="Run EXE::Argument 4 (--diameter)" ID="2" paramID="18" paramName="args4"/>
       </param>
       <param ID="6" UID="69615522" Caption="Cells: Cellpose --flow_threshold" Type="Text" Value="0.5" Constraints="" ErrorMessage="" Hint="Maximum allowed error of the flows for each mask. A higher value (0-1) will allow more detection.">
         <link Caption="Run EXE::Argument 6 (--flow_threshold)" ID="2" paramID="20" paramName="args6"/>
       </param>
-      <param ID="7" UID="69615520" Caption="Cells: Cellpose --cellprob_threshold" Type="Text" Value="0" Constraints="" ErrorMessage="" Hint="Minimum probability to return ROIs. A lower value will allow more detection.">
+      <param ID="7" UID="69615520" Caption="Cells: Cellpose --cellprob_threshold" Type="Text" Value="0.5" Constraints="" ErrorMessage="" Hint="Minimum probability to return ROIs. A lower value will allow more detection.">
         <link Caption="Run EXE::Argument 5 (--cellprob_threshold)" ID="2" paramID="19" paramName="args5"/>
       </param>
       <param ID="8" UID="60840193" Caption="Cells: Minimum size of cells (pixels area)" Type="Integer" Value="0" Constraints="&gt;0" ErrorMessage="Volume must be &gt;0 or 0 for not checking." Hint="The result provided by Cellpose is gated for this minimum pixel area per object">
@@ -278,7 +278,7 @@ V2: Added fluorescence/brightfield selector, optional inversion and optional dis
       </param>
     </Parameters>
   </Parameters>
-  <Options Version="1211">
+  <Options Version="1214">
     <usesexcel Value="false"/>
     <warnrefimage Value="false"/>
     <warnrefimagemsg Value=""/>
