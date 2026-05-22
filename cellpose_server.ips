@@ -1,5 +1,5 @@
-<IAPipeline Description="Image Analyst MKII XML 1.0" Version="1217">
-  <Pipeline Version="1217">
+<IAPipeline Description="Image Analyst MKII XML 1.0" Version="1221">
+  <Pipeline Version="1221">
     <Functions>
       <fRunEXE Caption="Run EXE" ID="0" PID="162" Description="Run EXE">
         <Caption>Run EXE</Caption>
@@ -21,7 +21,7 @@
           <parallel ID="13" Type="Integer" Value="1" SValue=""/>
           <runas ID="14" Type="Bool" Value="No"/>
           <args1 ID="15" Type="Text" Value=""/>
-          <args2 ID="16" Type="Text" Value="5"/>
+          <args2 ID="16" Type="Text" Value="2"/>
           <args3 ID="17" Type="Text" Value=""/>
           <args4 ID="18" Type="Text" Value=""/>
           <args5 ID="19" Type="Text" Value=""/>
@@ -36,7 +36,7 @@
       </fRunEXE>
     </Functions>
   </Pipeline>
-  <Parameters Version="1217">
+  <Parameters Version="1221">
     <Caption>Start Cellpose Server</Caption>
     <DesignVersion>1</DesignVersion>
     <Description>Starts Cellpose Server locally to allow fast calling Cellpose segmentation without relaunching Python environment for every image (sets).
@@ -66,12 +66,12 @@ By default, cellpose_server.py is configured to run Cellpose on GPU.
 Image data is transferred through a temporary folder, similarly to the command line operation of Cellpose.
 </Description>
     <Parameters>
-      <param ID="0" UID="102821522" Caption="Thread Count" Type="Text" Value="5" Constraints="" ErrorMessage="" Hint="Argument entries will be interspersed with the &quot;Argument&quot; entry">
+      <param ID="0" UID="102821522" Caption="Thread Count" Type="Text" Value="2" Constraints="" ErrorMessage="" Hint="Argument entries will be interspersed with the &quot;Argument&quot; entry">
         <link Caption="Run EXE::Argument 2 (--threadcount)" ID="0" paramID="16" paramName="args2"/>
       </param>
     </Parameters>
   </Parameters>
-  <Options Version="1217">
+  <Options Version="1221">
     <usesexcel Value="false"/>
     <warnrefimage Value="false"/>
     <warnrefimagemsg Value=""/>

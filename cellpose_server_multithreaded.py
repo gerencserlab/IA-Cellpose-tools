@@ -56,7 +56,7 @@ def process_single_image(img_path_single, model_params):
                 channels=[model_params['chan'], model_params['chan2']],
                 cellprob_threshold=model_params['cellprob_threshold'],
                 flow_threshold=model_params['flow_threshold'],
-                resample=False
+                resample=True
             )
             
             # Save the result
